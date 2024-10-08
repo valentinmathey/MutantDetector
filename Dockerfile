@@ -11,6 +11,9 @@ WORKDIR /app
 COPY build.gradle settings.gradle gradlew ./
 COPY gradle ./gradle
 
+# Dar permisos de ejecución a gradlew
+RUN chmod +x ./gradlew
+
 # Descargar dependencias del proyecto para cachear en futuros builds
 RUN ./gradlew --no-daemon build || return 0
 
@@ -34,7 +37,8 @@ WORKDIR /app
 EXPOSE ${PORT}
 
 # Copiar el archivo JAR generado desde la etapa de compilación
-COPY --from=build ./build/libs/mutant-0.0.1-SNAPSHOT.jar ./app.jar
+COPY --from=build /app/build/libs/mutant-0.0.1-SNAPSHOT.jar ./app.jar
 
 # Comando para ejecutar la aplicación
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+
