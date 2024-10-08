@@ -1,44 +1,31 @@
-# Etapa de compilación
-FROM openjdk:17-alpine AS build
+# Etapa de construcción (build) utilizando una imagen mínima de Alpine
+FROM alpine:latest as build
 
-# Instalar dependencias necesarias
-RUN apk update && apk add --no-cache bash
+# Actualiza el índice de los repositorios de Alpine
+RUN apk update
 
-# Establecer el directorio de trabajo
-WORKDIR /app
+# Instala OpenJDK 17 para poder compilar el proyecto Java
+RUN apk add openjdk17
 
-# Copiar solo archivos esenciales para mejorar el tiempo de build
-COPY build.gradle settings.gradle gradlew ./
-COPY gradle ./gradle
-
-# Dar permisos de ejecución a gradlew
-RUN chmod +x ./gradlew
-
-# Descargar dependencias del proyecto para cachear en futuros builds
-RUN ./gradlew --no-daemon build || return 0
-
-# Copiar el resto del código del proyecto
+# Copia todo el contenido del directorio actual (tu código fuente) al contenedor
 COPY . .
 
-# Ejecutar el build de Gradle para generar el JAR
+# Da permisos de ejecución al script de Gradle (./gradlew) para poder ejecutar el build
+RUN chmod +x ./gradlew
+
+# Ejecuta el comando de Gradle para generar el archivo JAR del proyecto Spring Boot
+# --no-daemon evita que Gradle corra en modo demonio para ahorrar memoria
 RUN ./gradlew bootJar --no-daemon
 
-# Etapa de ejecución
+# Etapa de producción utilizando una imagen ligera de OpenJDK en Alpine
 FROM openjdk:17-alpine
 
-# Establecer variables de entorno
-ENV PORT=9000
-ENV JAVA_OPTS=""
+# Expone el puerto 9000 para que la aplicación Spring Boot esté disponible en este puerto
+EXPOSE 9000
 
-# Crear un directorio para la aplicación
-WORKDIR /app
+# Copia el JAR generado en la etapa de build al contenedor final
+# Copia desde la carpeta /app/build/libs/ el archivo JAR generado con el nombre específico
+COPY --from=build /app/build/libs/mutant-0.0.1-SNAPSHOT.jar ./app.jar 
 
-# Exponer el puerto de la aplicación
-EXPOSE ${PORT}
-
-# Copiar el archivo JAR generado desde la etapa de compilación
-COPY --from=build /app/build/libs/mutant-0.0.1-SNAPSHOT.jar ./app.jar
-
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
-
+# Comando de entrada que ejecuta la aplicación Java usando el archivo JAR copiado
+ENTRYPOINT ["java", "-jar", "app.jar"]
