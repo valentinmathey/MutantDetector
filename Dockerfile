@@ -25,7 +25,7 @@ EXPOSE 9000
 
 # Copia el JAR generado en la etapa de build al contenedor final
 # Copia desde la carpeta /app/build/libs/ el archivo JAR generado con el nombre específico
-COPY --from=build /app/build/libs/mutant-0.0.1-SNAPSHOT.jar ./app.jar 
+COPY --from=build ./build/libs/*.jar ./app.jar 
 
 # Comando de entrada que ejecuta la aplicación Java usando el archivo JAR copiado
 ENTRYPOINT ["java", "-jar", "app.jar"]
