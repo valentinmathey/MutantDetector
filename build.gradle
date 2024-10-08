@@ -1,0 +1,56 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.mercadolibre'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Dependencias de Spring Boot
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Driver de PostgreSQL
+	runtimeOnly 'org.postgresql:postgresql'
+
+	// Lombok para reducir código boilerplate
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	testCompileOnly 'org.projectlombok:lombok:1.18.24'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+	// Dependencias para Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mockito:mockito-core:4.5.1'
+	testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
+
+	// Jackson Databind (si necesitas procesar JSON)
+	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+
+	// Spring Boot Starter Cache (si utilizas caché)
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
