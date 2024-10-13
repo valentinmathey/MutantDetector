@@ -2,9 +2,6 @@
 
 # Excluir carpetas y archivos de compilación
 .gradle/
-build/
-# Excepción para tu JAR específico
-!build/libs/mutant-0.0.1-SNAPSHOT.jar
 
 # Excluir archivos específicos
 HELP.md

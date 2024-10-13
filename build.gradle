@@ -35,8 +35,6 @@ dependencies {
 	// Lombok para reducir código boilerplate
 	compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
-	testCompileOnly 'org.projectlombok:lombok:1.18.24'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
 	// Dependencias para Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -46,7 +44,7 @@ dependencies {
 	// Jackson Databind (si necesitas procesar JSON)
 	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 
-	// Spring Boot Starter Cache (si utilizas caché)
+	// Spring Boot Starter Cache (para utilizar caché)
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 
 }
