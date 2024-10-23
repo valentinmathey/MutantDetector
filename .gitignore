@@ -2,6 +2,7 @@
 
 # Excluir carpetas y archivos de compilación
 .gradle/
+build/  
 
 # Excluir archivos específicos
 HELP.md
