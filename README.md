@@ -3,23 +3,6 @@
 ## 🧬 Introducción
 Magneto está en busca de mutantes para su causa y te ha contratado para desarrollar un sistema que detecte si un humano es mutante basándose en su secuencia de ADN. El sistema debe procesar secuencias de ADN y determinar si existen más de una secuencia de cuatro letras iguales de forma oblicua, horizontal o vertical.
 
-## ⚙️ Funcionamiento
-Se recibirá como parámetro un array de Strings que representan cada fila de una tabla de (6x6) con la secuencia del ADN. Las letras de los Strings solo pueden ser: (A,T,C,G), las cuales representa cada base nitrogenada del ADN.
-
-Se sabrá si un humano es mutante, si se encuentra MAS DE UNA SECUENCIA de cuatro letras iguales, de forma oblicua, horizontal o vertical.
-
-Las filas de la matriz a verificar se ingresan por teclado.
-
-Ejemplo de input: 'ATCGTA' (esto equivale a una fila de la matriz)
-
-Una vez cargada correctamente la misma, se aplica una función que verifica si hay presencia en la matriz de mutantes o no y se devuelve el resultado al usuario en base a eso.
-
-## 🚀 Firma del método:
-```java
-boolean isMutant(String[] dna)
-```
-Recibe un array de Strings que representan cada fila de una tabla de NxN con la secuencia del ADN. Las letras válidas son: A, T, C, G, representando las bases nitrogenadas del ADN.
-
 ## 🔍 Funcionalidades principales:
 
 •Verificación de secuencias mutantes: Se detectan secuencias en las direcciones horizontal, vertical y diagonal.
@@ -32,12 +15,10 @@ Recibe un array de Strings que representan cada fila de una tabla de NxN con la 
 
 •Manejo de matrices vacías.
 
-## 🚀 Ejecución
+## 🌐 Endpoints
 El proyecto ha sido deployado a Render y puedes accederlo mediante el siguiente link:
 
 🔗 https://mutantdetectorapi.onrender.com
-
-## 🌐 Endpoints
 
 - **POST /mutant** - Recibe un JSON con la matriz de ADN a verificar. Ejemplo:
 
@@ -61,6 +42,24 @@ El proyecto ha sido deployado a Render y puedes accederlo mediante el siguiente 
     "ratio": 0.33
 }
 ```
+
+## ⚙️ Funcionamiento
+Se recibirá como parámetro un array de Strings que representan cada fila de una tabla de (6x6) con la secuencia del ADN. Las letras de los Strings solo pueden ser: (A,T,C,G), las cuales representa cada base nitrogenada del ADN.
+
+Se sabrá si un humano es mutante, si se encuentra MAS DE UNA SECUENCIA de cuatro letras iguales, de forma oblicua, horizontal o vertical.
+
+Las filas de la matriz a verificar se ingresan por teclado.
+
+Ejemplo de input: 'ATCGTA' (esto equivale a una fila de la matriz)
+
+Una vez cargada correctamente la misma, se aplica una función que verifica si hay presencia en la matriz de mutantes o no y se devuelve el resultado al usuario en base a eso.
+
+## 🚀 Firma del método:
+```java
+boolean isMutant(String[] dna)
+```
+Recibe un array de Strings que representan cada fila de una tabla de NxN con la secuencia del ADN. Las letras válidas son: A, T, C, G, representando las bases nitrogenadas del ADN.
+
 ## 🧬 Ejemplo de ADN
 
 Ejemplo de matriz **MUTANTE**:
@@ -93,6 +92,14 @@ Ejemplo de matriz **NO MUTANTE**:
     ]
 }
 ```
+
+## 🧪 Ejecución de Tests
+Para ejecutar los tests del proyecto, utiliza el siguiente comando en la terminal:
+
+```bash
+./gradlew test
+```
+Este comando ejecutará todos los tests unitarios y de integración del proyecto.
 
 # 💻 Tech Stack:
 <div align="center">
